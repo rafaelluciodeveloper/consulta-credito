@@ -1,4 +1,4 @@
-package br.com.raaydesenvolvimento.creditos_api;
+package br.com.raaydesenvolvimento.creditosapi;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
