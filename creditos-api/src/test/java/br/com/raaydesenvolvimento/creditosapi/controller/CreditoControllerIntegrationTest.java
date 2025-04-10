@@ -65,7 +65,7 @@ public class CreditoControllerIntegrationTest {
         mockMvc.perform(get("/api/creditos/credito/123456")
                         .contentType("application/json"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.numeroCredito", is("123456")))
-                .andExpect(jsonPath("$.numeroNfse", is("7891011")));
+                .andExpect(jsonPath("$[0].numeroCredito", is("123456")))
+                .andExpect(jsonPath("$[0].numeroNfse", is("7891011")));
     }
 }

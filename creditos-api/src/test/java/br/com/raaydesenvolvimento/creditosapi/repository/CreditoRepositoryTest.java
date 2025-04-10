@@ -8,9 +8,9 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 @DataJpaTest
 public class CreditoRepositoryTest {
@@ -21,8 +21,8 @@ public class CreditoRepositoryTest {
     @Test
     public void testFindByNumeroNfse() {
         Credito credito = new Credito();
-        credito.setNumeroCredito("123456");
-        credito.setNumeroNfse("7891011");
+        credito.setNumeroCredito("1234567");
+        credito.setNumeroNfse("78910112");
         credito.setDataConstituicao(LocalDate.of(2024, 2, 25));
         credito.setValorIssqn(new BigDecimal("1500.75"));
         credito.setTipoCredito("ISSQN");
@@ -33,16 +33,16 @@ public class CreditoRepositoryTest {
         credito.setBaseCalculo(new BigDecimal("25000.00"));
         creditoRepository.save(credito);
 
-        List<Credito> lista = creditoRepository.findByNumeroNfse("7891011");
+        List<Credito> lista = creditoRepository.findByNumeroNfse("78910112");
         assertFalse(lista.isEmpty());
-        assertEquals("123456", lista.get(0).getNumeroCredito());
+        assertEquals("1234567", lista.get(0).getNumeroCredito());
     }
 
     @Test
     public void testFindByNumeroCredito() {
         Credito credito = new Credito();
-        credito.setNumeroCredito("654321");
-        credito.setNumeroNfse("1122334");
+        credito.setNumeroCredito("6543215");
+        credito.setNumeroNfse("11223341");
         credito.setDataConstituicao(LocalDate.of(2024, 1, 15));
         credito.setValorIssqn(new BigDecimal("800.50"));
         credito.setTipoCredito("Outros");
@@ -53,8 +53,8 @@ public class CreditoRepositoryTest {
         credito.setBaseCalculo(new BigDecimal("17000.00"));
         creditoRepository.save(credito);
 
-        Optional<Credito> resultado = creditoRepository.findByNumeroCredito("654321");
-        assertTrue(resultado.isPresent());
-        assertEquals("1122334", resultado.get().getNumeroNfse());
+        List<Credito> resultado = creditoRepository.findByNumeroCredito("6543215");
+        assertFalse(resultado.isEmpty());
+        assertEquals("11223341", resultado.get(0).getNumeroNfse());
     }
 }

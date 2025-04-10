@@ -12,6 +12,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -47,7 +48,7 @@ public class CreditoServiceTest {
     @Test
     public void testGetCreditosByNfse() {
         when(creditoRepository.findByNumeroNfse("7891011"))
-                .thenReturn(Arrays.asList(credito));
+                .thenReturn(Collections.singletonList(credito));
 
         List<Credito> resultado = creditoService.getCreditosByNfse("7891011");
         assertNotNull(resultado);
@@ -58,10 +59,10 @@ public class CreditoServiceTest {
     @Test
     public void testGetCreditoByNumero() {
         when(creditoRepository.findByNumeroCredito("123456"))
-                .thenReturn(Optional.of(credito));
+                .thenReturn(Collections.singletonList(credito));
 
-        Optional<Credito> resultado = creditoService.getCreditoByNumero("123456");
-        assertTrue(resultado.isPresent());
-        assertEquals("123456", resultado.get().getNumeroCredito());
+        List<Credito> resultado = creditoService.getCreditoByNumero("123456");
+        assertFalse(resultado.isEmpty());
+        assertEquals("123456", resultado.get(0).getNumeroCredito());
     }
 }

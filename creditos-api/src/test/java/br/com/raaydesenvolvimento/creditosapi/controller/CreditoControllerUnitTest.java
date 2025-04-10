@@ -15,7 +15,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Arrays;
-import java.util.Optional;
+import java.util.Collections;
 
 import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -68,12 +68,12 @@ public class CreditoControllerUnitTest {
         credito.setNumeroNfse("7891011");
 
         Mockito.when(creditoService.getCreditoByNumero("123456"))
-                .thenReturn(Optional.of(credito));
+                .thenReturn(Collections.singletonList(credito));
 
         mockMvc.perform(get("/api/creditos/credito/123456")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.numeroCredito", is("123456")))
-                .andExpect(jsonPath("$.numeroNfse", is("7891011")));
+                .andExpect(jsonPath("$[0].numeroCredito", is("123456")))
+                .andExpect(jsonPath("$[0].numeroNfse", is("7891011")));
     }
 }
