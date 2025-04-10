@@ -135,6 +135,6 @@ creditos-web
 
 ## 🚪 Autor
 **Rafael Lucio**  
-LinkedIn: [linkedin.com/in/seu-nome](https://www.linkedin.com/in/rafael-lucio-5b72a5103/)  
-Email: voce@exemplo.com
+LinkedIn: [https://www.linkedin.com/in/rafael-lucio-5b72a5103](https://www.linkedin.com/in/rafael-lucio-5b72a5103)  
+Email: rafaellucio.developer@gmail.com
 
