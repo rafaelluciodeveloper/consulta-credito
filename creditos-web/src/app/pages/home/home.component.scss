@@ -1,0 +1,51 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  max-width: 100%;
+  padding: 2rem;
+  gap: 1rem;
+}
+
+.form-linha {
+  display: flex;
+  gap: 16px;
+  width: 100%;
+}
+
+.campo-tipo {
+  width: 220px;
+}
+
+.campo-valor {
+  flex: 1;
+}
+
+.botao-centro {
+  display: flex;
+  justify-content: center;
+}
+
+.botao-centro button {
+  height: 56px;
+  padding: 0 24px;
+  border-radius: 4px;
+  font-weight: 500;
+}
+
+.badge-verde .mat-badge-content {
+  background-color: #4caf50;
+  color: white;
+}
+
+.badge-vermelho .mat-badge-content {
+  background-color: #f44336;
+  color: white;
+}
+
+.spinner-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 150px;
+}
+
