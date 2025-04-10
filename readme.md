@@ -48,7 +48,7 @@ cd consulta-credito
 
 ### 2. Suba todos os serviços com Docker Compose:
 ```bash
-docker-compose up --build
+docker-compose up --build -d
 ```
 
 Esse comando irá subir:
