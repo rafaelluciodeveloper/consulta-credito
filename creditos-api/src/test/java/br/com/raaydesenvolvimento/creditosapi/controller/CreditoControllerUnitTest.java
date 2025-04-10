@@ -8,14 +8,13 @@ import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.MediaType;
 import org.springframework.kafka.core.KafkaTemplate;
-import org.springframework.test.context.bean.override.mockito.MockitoBean;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.math.BigDecimal;
@@ -29,32 +28,21 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
+@ActiveProfiles("test")
 @AutoConfigureMockMvc
 public class CreditoControllerUnitTest {
 
     @Autowired
     private MockMvc mockMvc;
 
-    @Autowired
+    @MockBean
     private CreditoService creditoService;
 
     @Autowired
     private ObjectMapper objectMapper;
 
-
-    @TestConfiguration
-    static class TestConfig {
-        @Bean
-        public CreditoService creditoService() {
-            return Mockito.mock(CreditoService.class);
-        }
-
-        @Bean
-        @ConditionalOnMissingBean
-        public KafkaTemplate<String, String> kafkaTemplate() {
-            return Mockito.mock(KafkaTemplate.class);
-        }
-    }
+    @MockBean
+    private KafkaTemplate<String, String> kafkaTemplate;
 
 
     @Test
