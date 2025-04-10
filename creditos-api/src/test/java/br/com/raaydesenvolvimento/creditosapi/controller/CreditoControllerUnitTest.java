@@ -6,12 +6,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.context.annotation.Bean;
 import org.springframework.http.MediaType;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.test.context.ActiveProfiles;
@@ -21,6 +18,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 
 import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -47,6 +45,19 @@ public class CreditoControllerUnitTest {
 
     @Test
     public void testGetCreditosByNfse() throws Exception {
+        Credito credito = getCredito();
+
+        Mockito.when(creditoService.getCreditosByNfse("7891011"))
+                .thenReturn(List.of(credito));
+
+        mockMvc.perform(get("/api/creditos/7891011")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$[0].numeroCredito", is("123456")))
+                .andExpect(jsonPath("$[0].numeroNfse", is("7891011")));
+    }
+
+    private static Credito getCredito() {
         Credito credito = new Credito();
         credito.setNumeroCredito("123456");
         credito.setNumeroNfse("7891011");
@@ -58,15 +69,7 @@ public class CreditoControllerUnitTest {
         credito.setValorFaturado(new BigDecimal("30000.00"));
         credito.setValorDeducao(new BigDecimal("5000.00"));
         credito.setBaseCalculo(new BigDecimal("25000.00"));
-
-        Mockito.when(creditoService.getCreditosByNfse("7891011"))
-                .thenReturn(Arrays.asList(credito));
-
-        mockMvc.perform(get("/api/creditos/7891011")
-                        .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$[0].numeroCredito", is("123456")))
-                .andExpect(jsonPath("$[0].numeroNfse", is("7891011")));
+        return credito;
     }
 
     @Test
