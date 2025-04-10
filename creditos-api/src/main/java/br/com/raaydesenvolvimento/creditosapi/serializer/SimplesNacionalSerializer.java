@@ -6,9 +6,9 @@ import com.fasterxml.jackson.databind.SerializerProvider;
 
 import java.io.IOException;
 
-public class SimplesNacionalSerializer  extends JsonSerializer<Boolean> {
+public class SimplesNacionalSerializer  extends JsonSerializer<String> {
     @Override
-    public void serialize(Boolean value, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
-        jsonGenerator.writeString(value ? "Sim" : "Não");
+    public void serialize(String value, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
+        jsonGenerator.writeString(value.equalsIgnoreCase("true") ? "Sim" : "Não");
     }
 }
